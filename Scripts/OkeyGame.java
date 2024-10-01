@@ -31,6 +31,7 @@ public class OkeyGame {
      * player at index 0 gets 15 tiles and starts first
      * other players get 14 tiles
      * this method assumes the tiles are already shuffled
+     * Deniz
      */
     public void distributeTilesToPlayers() {
 
@@ -40,6 +41,7 @@ public class OkeyGame {
      * TODO: get the last discarded tile for the current player
      * (this simulates picking up the tile discarded by the previous player)
      * it should return the toString method of the tile so that we can print what we picked
+     * Deniz
      */
     public String getLastDiscardedTile() {
         return null;
@@ -49,6 +51,7 @@ public class OkeyGame {
      * TODO: get the top tile from tiles array for the current player
      * that tile is no longer in the tiles array (this simulates picking up the top tile)
      * it should return the toString method of the tile so that we can print what we picked
+     * Deniz
      */
     public String getTopTile() {
         return null;
@@ -56,6 +59,7 @@ public class OkeyGame {
 
     /*
      * TODO: should randomly shuffle the tiles array before game starts
+     * Semih
      */
     public void shuffleTiles() {
 
@@ -64,6 +68,7 @@ public class OkeyGame {
     /*
      * TODO: check if game still continues, should return true if current player
      * finished the game, use isWinningHand() method of Player to decide
+     * Enes
      */
     public boolean didGameFinish() {
         return false;
@@ -75,6 +80,7 @@ public class OkeyGame {
      * - picking from the lastDiscardedTile using getLastDiscardedTile()
      * You should consider if the discarded tile is useful for the computer in
      * the current status. Print whether computer picks from tiles or discarded ones.
+     * Yavuz
      */
     public void pickTileForComputer() {
 
@@ -84,7 +90,8 @@ public class OkeyGame {
      * TODO: Current computer player will discard the least useful tile.
      * this method should print what tile is discarded since it should be
      * known by other players. You may first discard duplicates and then
-     * the single tiles and tiles that contribute to the smallest chains.
+     * the single tiles and tiles that contribute to the smallest chains
+     * Enes.
      */
     public void discardTileForComputer() {
 
@@ -94,6 +101,7 @@ public class OkeyGame {
      * TODO: discards the current player's tile at given index
      * this should set lastDiscardedTile variable and remove that tile from
      * that player's tiles
+     * Yavuz
      */
     public void discardTile(int tileIndex) {
 

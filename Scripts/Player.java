@@ -11,6 +11,7 @@ public class Player {
 
     /*
      * TODO: removes and returns the tile in given index
+     * Burak
      */
     public Tile getAndRemoveTile(int index) {
         return null;
@@ -20,6 +21,7 @@ public class Player {
      * TODO: adds the given tile to the playerTiles in order
      * should also update numberOfTiles accordingly.
      * make sure playerTiles are not more than 15 at any time
+     * Burak
      */
     public void addTile(Tile t) {
 
@@ -29,6 +31,7 @@ public class Player {
      * TODO: checks if this player's hand satisfies the winning condition
      * to win this player should have 3 chains of length 4, extra tiles
      * does not disturb the winning condition
+     * Semih
      * @return
      */
     public boolean isWinningHand() {
