@@ -66,12 +66,16 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: check if game still continues, should return true if current player
-     * finished the game, use isWinningHand() method of Player to decide
-     * Enes
+     * Decides if current player finished the game or not
      */
     public boolean didGameFinish() {
-        return false;
+        boolean didFinish = false;
+        if(players[currentPlayerIndex].isWinningHand())
+        {
+            didFinish = true;
+        }
+
+        return didFinish;
     }
 
     /*
@@ -86,16 +90,86 @@ public class OkeyGame {
 
     }
 
+
+    //#region ComputerDiscardTile
     /*
-     * TODO: Current computer player will discard the least useful tile.
-     * this method should print what tile is discarded since it should be
-     * known by other players. You may first discard duplicates and then
-     * the single tiles and tiles that contribute to the smallest chains
+     * This method selects least useful tile for computer and discards it 
+     * prints what tile is discarded 
+     * Priorities tiles that are duplicate. 
+     * If there is not duplicate, discardes least useful tile
      * Enes.
      */
     public void discardTileForComputer() {
+        Player currentPlayer = players[currentPlayerIndex];
+        int leastImportantTileIndex = 0;
+        int leastPriority = Integer.MAX_VALUE;
 
+
+        for (int i = 0; i < currentPlayer.getTiles().length; i++) {
+            int priority = calculateTilePriority(currentPlayer.getTiles()[i], currentPlayer);
+
+            if(priority < leastPriority)
+            {
+                leastImportantTileIndex = i;
+                leastPriority = priority;
+            }
+        }
+
+        Tile discardedTile = currentPlayer.getAndRemoveTile(leastImportantTileIndex);
+        lastDiscardedTile = discardedTile;
+
+        System.out.println(lastDiscardedTile.toString() + " discarded.");
     }
+
+    /**
+     * Calculates priority by considering duplication and chain count
+     * @param tile
+     * @param player
+     * @return
+     */
+    private int calculateTilePriority(Tile tile, Player player)
+    {
+        int priority = 0;
+
+        if(isDuplicate(tile, player))
+        {
+            priority = -1;
+        }
+        else
+        {
+            for (int i = 0; i < player.getTiles().length; i++) {
+
+
+                if(tile.canFormChainWith(player.getTiles()[i]))
+                {
+                    priority ++;
+                }
+            }    
+        }
+        
+        return priority;
+    }
+
+    /**
+     * Decides a tile is duplicate or not
+     * @param tile
+     * @param player
+     * @return true if duplicate
+     */
+    private boolean isDuplicate(Tile tile, Player player)
+    {
+        boolean isExists = false;
+        for (int i = 0; i < player.getTiles().length; i++) {
+            if(player.getTiles()[i].compareTo(tile) == 0)
+            {
+                isExists = true;
+                break;
+            }
+        }
+        return isExists;
+    }
+
+    //#endregion
 
     /*
      * TODO: discards the current player's tile at given index
