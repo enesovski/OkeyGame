@@ -1,3 +1,4 @@
+import java.util.Random;
 public class OkeyGame {
 
     Player[] players;
@@ -62,6 +63,14 @@ public class OkeyGame {
      * Semih
      */
     public void shuffleTiles() {
+        Random rand=new Random();
+        for(int i=0;i<tiles.length;i++){
+            int random_number_index=rand.nextInt(tiles.length-i)+i;
+            Tile temp_tile=tiles[random_number_index];
+            tiles[random_number_index]=tiles[i];
+            tiles[i]=temp_tile;
+            
+        }
 
     }
 
