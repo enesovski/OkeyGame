@@ -96,7 +96,15 @@ public class OkeyGame {
      * Yavuz
      */
     public void pickTileForComputer() {
-
+        int priorityOfDiscardedTile = calculateTilePriority(lastDiscardedTile, players[currentPlayerIndex]);
+        int priorityOfTileInTheStack = calculateTilePriority(tiles[tiles.length - 1], players[currentPlayerIndex]);
+        
+        if(priorityOfDiscardedTile < priorityOfTileInTheStack){
+            getTopTile();
+        }
+        else{
+            getLastDiscardedTile();
+        }
     }
 
 
@@ -187,6 +195,10 @@ public class OkeyGame {
      * Yavuz
      */
     public void discardTile(int tileIndex) {
+        Player currentPlayer = players[currentPlayerIndex];
+
+        lastDiscardedTile = currentPlayer.getAndRemoveTile(tileIndex);
+
 
     }
 
