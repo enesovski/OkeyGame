@@ -35,7 +35,22 @@ public class Player {
      * @return
      */
     public boolean isWinningHand() {
-        return false;
+        int count=0;
+        int count_=0;
+        for(int i=0;i<numberOfTiles-1;i++){
+            if(playerTiles[i].compareTo(playerTiles[i+1])==0){
+                continue;
+            }
+            if(playerTiles[i].canFormChainWith(playerTiles[i+1])){
+                count_+=1;
+            }else{
+                if(count_==4){
+                    count+=1;
+                }
+                count_=1;
+            }
+        }
+        return count==3;
     }
 
     public int findPositionOfTile(Tile t) {
