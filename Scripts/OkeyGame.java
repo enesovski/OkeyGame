@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 public class OkeyGame {
 
@@ -35,7 +36,22 @@ public class OkeyGame {
      * Deniz
      */
     public void distributeTilesToPlayers() {
+        int playerIndex,
+            i;
 
+        playerIndex = 0;
+        i = 0;
+
+        while( playerIndex < 4 ){
+
+            for( i = 0 ; i < tiles.length && players[playerIndex].getTiles().length < 15; i++ ){ //adds 14 for each player
+                players[playerIndex].addTile(tiles[i]);
+            }
+
+            playerIndex++;
+        }
+
+        players[0].addTile(tiles[i]);    //adds an additional tile for the starting player
     }
 
     /*
@@ -45,7 +61,9 @@ public class OkeyGame {
      * Deniz
      */
     public String getLastDiscardedTile() {
-        return null;
+        players[currentPlayerIndex].addTile(lastDiscardedTile);
+
+        return lastDiscardedTile.toString();
     }
 
     /*
@@ -55,7 +73,11 @@ public class OkeyGame {
      * Deniz
      */
     public String getTopTile() {
-        return null;
+        players[currentPlayerIndex].addTile(tiles[tiles.length - 1]);
+
+        tiles = Arrays.copyOf(tiles, tiles.length - 1);    //ommits the last element of the tiles array, which is the top tile
+
+        return tiles[tiles.length - 1].toString();
     }
 
     /*
