@@ -56,7 +56,7 @@ public class Tile {
     public boolean canFormChainWith(Tile t) {
 
         // can make chain if same number but different color
-        if(t.getColor() != color && t.getValue() == value) {
+        if(t.getColor() != color && t.getValue() == value ) {
             return true;
         } else {
             return false;

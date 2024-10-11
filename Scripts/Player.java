@@ -1,4 +1,4 @@
-public class Player {
+class Player {
     String playerName;
     Tile[] playerTiles;
     int numberOfTiles;
@@ -9,6 +9,7 @@ public class Player {
         numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
     }
 
+    //#region getAndRemoveTile
         /*
      * TODO: removes and returns the tile in given index
      * @return discardedTile
@@ -16,26 +17,15 @@ public class Player {
      */
     public Tile getAndRemoveTile(int index) {
 
-        Tile discardedTile = new Tile( playerTiles[index].getValue() , playerTiles[index].getColor() );
-        Tile[] discardedTileList = new Tile[ numberOfTiles - 1 ];
-        
-        for( int i = 0 ; i < discardedTileList.length ; i++ ) {
-
-            if( i < index ) {
-                discardedTileList[ i ] = playerTiles[ i ];
-            }
-
-            else {
-                discardedTileList[ i ] = playerTiles[ i + 1 ];
-            }
-
-        }
-
-        playerTiles = discardedTileList;
+        Tile discardedTile = playerTiles[index];
+        System.out.println(discardedTile.toString());
+        playerTiles[index] = null;
         numberOfTiles--;
+
         return discardedTile;
     }
 
+    //#endregion
     /*
      * TODO: adds the given tile to the playerTiles in order
      * should also update numberOfTiles accordingly.
@@ -44,22 +34,26 @@ public class Player {
      */
     public void addTile(Tile t) {
 
-        if( numberOfTiles < 15 ) {
+        if( numberOfTiles == 14 ) {
 
-            Tile[] addedTileList = new Tile[ numberOfTiles + 1 ];
-            
-	        for( int i = 0 ; i < numberOfTiles ; i++ ) {
-	    	    addedTileList[ i ] = playerTiles[ i ];     
-	        }
-
-	        addedTileList[ addedTileList.length - 1 ] = t;
-	        playerTiles = addedTileList;
+            playerTiles[playerTiles.length-1] = t;
 
             sortTiles();
+        }
+        else{
 
-            numberOfTiles++;
+            for (int i = 0; i < playerTiles.length ; i++) {
+
+                if( playerTiles[i] == null ){
+                    playerTiles[i] = t;
+                    break;
+                }
+
+            }
+
         }
 
+        numberOfTiles++;
     }
 
     /**
@@ -67,8 +61,9 @@ public class Player {
      * Every tile has its own unique priority value.
      * Priority value of a tile = ( 5 * value of tile ) + color of tile
      */
-    public void sortTiles( ) {
 
+    public void sortTiles( ) {
+        
         Tile[] sortedHand = new Tile[ playerTiles.length ];
         int[] priorities = new int[ playerTiles.length ];
         int priority = 0;
@@ -76,6 +71,9 @@ public class Player {
 
         for( int i = 0 ; i < playerTiles.length ; i++ ) {
 
+            if( playerTiles[i] == null){
+                continue;
+            }
             if( playerTiles[ i ].getColor() == 'Y' ) {
                 colorCode = 0;
             }
@@ -94,15 +92,16 @@ public class Player {
 
         }
 
-        int minPriority = Integer.MAX_VALUE;
         int currentPriority;
         int minPriorityIndex = 0;
 
         for( int p = 0 ; p < playerTiles.length ; p++ ) {
 
+            int minPriority = Integer.MAX_VALUE;
+
             for( int k = 0 ; k < playerTiles.length ; k++ ) {
                 currentPriority = priorities[ k ];
-
+                
                 if( currentPriority < minPriority ) {
                     minPriority = currentPriority;
                     minPriorityIndex = k;
@@ -127,6 +126,10 @@ public class Player {
         int count=0;
         int count_=0;
         for(int i=0;i<numberOfTiles-1;i++){
+            
+            if(playerTiles[i] == null){
+                continue;
+            }
             if(playerTiles[i].compareTo(playerTiles[i+1])==0){
                 continue;
             }
@@ -145,6 +148,9 @@ public class Player {
     public int findPositionOfTile(Tile t) {
         int tilePosition = -1;
         for (int i = 0; i < numberOfTiles; i++) {
+            if(playerTiles[i] == null){
+                continue;
+            }
             if(playerTiles[i].compareTo(t) == 0) {
                 tilePosition = i;
             }
@@ -155,12 +161,26 @@ public class Player {
     public void displayTiles() {
         System.out.println(playerName + "'s Tiles:");
         for (int i = 0; i < numberOfTiles; i++) {
+            if(playerTiles[i] == null){
+                continue;
+            }
+
             System.out.print(playerTiles[i].toString() + " ");
         }
         System.out.println();
     }
 
     public Tile[] getTiles() {
+        Tile[] tilesWithNull = new Tile[15];
+        int tilesCount = 0;
+
+        for (int i = 0; i < playerTiles.length; i++) {
+            if(playerTiles[i] == null)
+                continue;
+            tilesWithNull[tilesCount] = playerTiles[i];
+            tilesCount ++;
+        }
+
         return playerTiles;
     }
 

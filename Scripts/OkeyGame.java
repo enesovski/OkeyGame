@@ -43,11 +43,13 @@ public class OkeyGame {
         i = 0;
 
         while( playerIndex < 4 ){
+            int j = 0;
 
-            for( i = 0 ; i < tiles.length && players[playerIndex].getTiles().length < 15; i++ ){ //adds 14 for each player
+            for(; j < players[playerIndex].getTiles().length - 1 ; i++ , j++){ //adds 14 for each player
                 players[playerIndex].addTile(tiles[i]);
             }
 
+            j = 0;
             playerIndex++;
         }
 
@@ -73,11 +75,12 @@ public class OkeyGame {
      * Deniz
      */
     public String getTopTile() {
-        players[currentPlayerIndex].addTile(tiles[tiles.length - 1]);
+        Tile newTile = tiles[tiles.length - 1];
+        players[currentPlayerIndex].addTile(newTile);
 
         tiles = Arrays.copyOf(tiles, tiles.length - 1);    //ommits the last element of the tiles array, which is the top tile
 
-        return tiles[tiles.length - 1].toString();
+        return newTile.toString();
     }
 
     /*
@@ -145,6 +148,9 @@ public class OkeyGame {
 
 
         for (int i = 0; i < currentPlayer.getTiles().length; i++) {
+
+            if(currentPlayer.getTiles()[i] == null)
+                continue;
             int priority = calculateTilePriority(currentPlayer.getTiles()[i], currentPlayer);
 
             if(priority < leastPriority)
@@ -179,7 +185,7 @@ public class OkeyGame {
             for (int i = 0; i < player.getTiles().length; i++) {
 
 
-                if(tile.canFormChainWith(player.getTiles()[i]))
+                if(!(player.getTiles()[i] == null) && tile.canFormChainWith(player.getTiles()[i]))
                 {
                     priority ++;
                 }
@@ -197,8 +203,15 @@ public class OkeyGame {
      */
     private boolean isDuplicate(Tile tile, Player player)
     {
+        if(tile == null){
+            return false;
+        }
+
         boolean isExists = false;
         for (int i = 0; i < player.getTiles().length; i++) {
+            if(player.getTiles()[i] == null ){
+                continue;
+            }
             if(player.getTiles()[i].compareTo(tile) == 0)
             {
                 isExists = true;
