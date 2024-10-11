@@ -47,70 +47,17 @@ public class Player {
         if( numberOfTiles < 15 ) {
 
             Tile[] addedTileList = new Tile[ numberOfTiles + 1 ];
-            int colorCode = 0;  //Used to determine the priority of the tile
+            
+	        for( int i = 0 ; i < numberOfTiles ; i++ ) {
+	    	    addedTileList[ i ] = playerTiles[ i ];     
+	        }
 
-            if( t.getColor() == 'Y' ) {
-                colorCode = 0;
-            }
-            else if( t.getColor() == 'B' ) {
-                colorCode = 1;
-            }
-            else if( t.getColor() == 'R' ) {
-                colorCode = 2;
-            }
-            else{
-                colorCode = 3;
-            }
+	        addedTileList[ addedTileList.length - 1 ] = t;
+	        playerTiles = addedTileList;
 
-            int tilePriority = 5 * t.getValue() + colorCode;
             sortTiles();
 
-            int currentTilePriority = 0;
-            int prevTilePriority = 0;
-            int currentColorCode = 0;
-            for( int i = 0 ; i < playerTiles.length ; i++ ) {
-
-                if( playerTiles[ i ].getColor() == 'Y' ) {
-                    currentColorCode = 0;
-                }
-                else if( playerTiles[ i ].getColor() == 'B' ) {
-                    currentColorCode = 1;
-                }
-                else if( playerTiles[ i ].getColor() == 'R' ) {
-                    currentColorCode = 2;
-                }
-                else{
-                    currentColorCode = 3;
-                }
-
-                currentTilePriority = 5 * playerTiles[ i ].getValue() + currentColorCode; //Creates an unique priority value for each element of the list
-
-                if( prevTilePriority <= tilePriority && tilePriority <= currentTilePriority ) {
-
-                    int b = i;
-                    for( int a = 0 ; a < addedTileList.length ; a++ ) {
-                        if( a < i ) {
-                            addedTileList[ a ] = playerTiles[ a ];
-                        }
-
-                        else if( a == i ){
-                            addedTileList[ a ] = t;
-                        }
-
-                        else{
-                            addedTileList[ a ] = playerTiles[ b ];
-                            b++;
-                        }
-
-                    }
-                    break;
-                }
-
-                prevTilePriority = currentTilePriority;
-            }
-
             numberOfTiles++;
-            playerTiles = addedTileList;
         }
 
     }
