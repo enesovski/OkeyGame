@@ -3,6 +3,7 @@ import java.util.Random;
 public class OkeyGame {
 
     Player[] players;
+    final int maxTileNumber = 15;
     Tile[] tiles;
 
     Tile lastDiscardedTile;
@@ -45,7 +46,7 @@ public class OkeyGame {
         while( playerIndex < 4 ){
             int j = 0;
 
-            for(; j < players[playerIndex].getTiles().length - 1 ; i++ , j++){ //adds 14 for each player
+            for(; j < maxTileNumber  ; i++ , j++){ //adds 14 for each player
                 players[playerIndex].addTile(tiles[i]);
             }
 
@@ -122,14 +123,18 @@ public class OkeyGame {
      */
     public void pickTileForComputer() {
         int priorityOfDiscardedTile = calculateTilePriority(lastDiscardedTile, players[currentPlayerIndex]);
-        int priorityOfTileInTheStack = calculateTilePriority(tiles[tiles.length - 1], players[currentPlayerIndex]);
+        //int priorityOfTileInTheStack = calculateTilePriority(tiles[tiles.length - 1], players[currentPlayerIndex]);
+
+        Random rand = new Random();
+        int randPriority = rand.nextInt( -1 , 4 );
         
-        if(priorityOfDiscardedTile < priorityOfTileInTheStack){
+        if(priorityOfDiscardedTile < randPriority){
             getTopTile();
         }
         else{
             getLastDiscardedTile();
         }
+        System.out.println(Arrays.toString( players[currentPlayerIndex].getTiles() ));
     }
 
 
@@ -149,8 +154,10 @@ public class OkeyGame {
 
         for (int i = 0; i < currentPlayer.getTiles().length; i++) {
 
-            if(currentPlayer.getTiles()[i] == null)
+            if(currentPlayer.getTiles()[i] == null) {
                 continue;
+            }
+            
             int priority = calculateTilePriority(currentPlayer.getTiles()[i], currentPlayer);
 
             if(priority < leastPriority)
@@ -179,15 +186,24 @@ public class OkeyGame {
         if(isDuplicate(tile, player))
         {
             priority = -1;
+
+            for( int i = 0 ; i < player.getTiles().length ; i++ ) {
+                if( tile.equals(player.getTiles()[ i ])) {
+                    priority--;
+                }
+            }
         }
         else
         {
             for (int i = 0; i < player.getTiles().length; i++) {
 
-
                 if(!(player.getTiles()[i] == null) && tile.canFormChainWith(player.getTiles()[i]))
                 {
-                    priority ++;
+                    for (int j = 0; j < player.getTiles().length; j++) {
+                        if( tile.canFormChainWith(player.getTiles()[i]) ) {
+                            priority++;
+                        }
+                    }
                 }
             }    
         }
@@ -242,11 +258,13 @@ public class OkeyGame {
             System.out.println("Last Discarded: " + lastDiscardedTile.toString());
         }
     }
-
+//#region DÜZELT
     public void displayCurrentPlayersTiles() {
-        players[currentPlayerIndex].displayTiles();
-    }
 
+        players[currentPlayerIndex].displayTiles();
+        //System.out.println(Arrays.toString(players[currentPlayerIndex].getTiles()));
+    }
+//#endregion
     public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }

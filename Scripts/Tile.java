@@ -75,5 +75,17 @@ public class Tile {
     public char getColor() {
         return color;
     }
+
+    public boolean equals( Tile obj ){
+
+        if( obj == null ) {
+            return false;
+        }
+        if( this.value == obj.value && this.color == obj.color ) {
+            return true;
+        }
+
+        return false;
+    }
     
 }

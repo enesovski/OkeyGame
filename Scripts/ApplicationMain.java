@@ -34,6 +34,7 @@ public class ApplicationMain {
             
             if(currentPlayer == 0) {
                 // this is the human player's turn
+                
                 game.displayCurrentPlayersTiles();
                 game.displayDiscardInformation();
 
@@ -51,6 +52,7 @@ public class ApplicationMain {
 
                 System.out.print("Your choice: ");
                 playerChoice = sc.nextInt();
+                sc.nextLine();
 
                 // after the first turn we can pick up
                 if(!firstTurn) {

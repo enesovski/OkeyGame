@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class Player {
     String playerName;
     Tile[] playerTiles;
@@ -38,7 +40,6 @@ class Player {
 
             playerTiles[playerTiles.length-1] = t;
 
-            sortTiles();
         }
         else{
 
@@ -53,6 +54,7 @@ class Player {
 
         }
 
+        sortTiles();
         numberOfTiles++;
     }
 
@@ -125,7 +127,7 @@ class Player {
     public boolean isWinningHand() {
         int count=0;
         int count_=0;
-        for(int i=0;i<numberOfTiles-1;i++){
+        for(int i=0;i<playerTiles.length-2;i++){
             
             if(playerTiles[i] == null){
                 continue;
@@ -160,7 +162,8 @@ class Player {
 
     public void displayTiles() {
         System.out.println(playerName + "'s Tiles:");
-        for (int i = 0; i < numberOfTiles; i++) {
+        sortTiles();
+        for (int i = 0; i < playerTiles.length; i++) {
             if(playerTiles[i] == null){
                 continue;
             }
