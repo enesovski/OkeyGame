@@ -50,27 +50,40 @@ public class ApplicationMain {
                     System.out.println("1. Discard Tile");
                 }
 
-                boolean validChoice = false;
-                while(!validChoice) {
+                boolean isValid = false;
+                while(!isValid) {
                     System.out.print("Your choice: ");
-                    playerChoice = sc.nextInt();
 
-                    if(firstTurn) {
-                        // Only option 1 is allowed on the first turn
-                        if(playerChoice == 1) {
-                            validChoice = true;
-                        } else {
-                            System.out.println("Invalid choice. Please choose 1.");
-                        }
-                    } else {
-                        // Options 1 or 2 are allowed after the first turn
-                        if(playerChoice == 1 || playerChoice == 2) {
-                            validChoice = true;
-                        } else {
-                            System.out.println("Invalid choice. Please choose 1 or 2.");
+                    if( sc.hasNextInt() ) {
+
+                        playerChoice = sc.nextInt();
+
+                        if(firstTurn) {
+                            // Only option 1 is allowed on the first turn
+                            if(playerChoice == 1) {
+                                isValid = true;
+                            }
+                        } 
+
+                        else {
+                            // Options 1 or 2 are allowed after the first turn
+                            if(playerChoice == 1 || playerChoice == 2) {
+                                isValid = true;
+                            }
+                            
                         }
                     }
+
+                    if( !isValid ) {
+                        System.out.println( "Please enter a void choice: " );
+
+                    }
+
+                    sc.nextLine();
+
                 }
+
+
                 // after the first turn we can pick up
                 if(!firstTurn) {
                     if(playerChoice == 1) {
