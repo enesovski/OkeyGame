@@ -58,7 +58,6 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: get the last discarded tile for the current player
      * (this simulates picking up the tile discarded by the previous player)
      * it should return the toString method of the tile so that we can print what we picked
      * Deniz
@@ -70,7 +69,6 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: get the top tile from tiles array for the current player
      * that tile is no longer in the tiles array (this simulates picking up the top tile)
      * it should return the toString method of the tile so that we can print what we picked
      * Deniz
@@ -114,7 +112,6 @@ public class OkeyGame {
     }
 
     /*
-     * TODO: Pick a tile for the current computer player using one of the following:
      * - picking from the tiles array using getTopTile()
      * - picking from the lastDiscardedTile using getLastDiscardedTile()
      * You should consider if the discarded tile is useful for the computer in
@@ -134,7 +131,6 @@ public class OkeyGame {
         else{
             getLastDiscardedTile();
         }
-        System.out.println(Arrays.toString( players[currentPlayerIndex].getTiles() ));
     }
 
 
@@ -262,7 +258,6 @@ public class OkeyGame {
     public void displayCurrentPlayersTiles() {
 
         players[currentPlayerIndex].displayTiles();
-        //System.out.println(Arrays.toString(players[currentPlayerIndex].getTiles()));
     }
 //#endregion
     public int getCurrentPlayerIndex() {

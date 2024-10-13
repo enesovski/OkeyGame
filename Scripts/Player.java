@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Player {
     String playerName;
     Tile[] playerTiles;
@@ -11,25 +9,20 @@ class Player {
         numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
     }
 
-    //#region getAndRemoveTile
-        /*
-     * TODO: removes and returns the tile in given index
+    /*
      * @return discardedTile
      * Burak
      */
     public Tile getAndRemoveTile(int index) {
 
         Tile discardedTile = playerTiles[index];
-        System.out.println(discardedTile.toString());
         playerTiles[index] = null;
         numberOfTiles--;
 
         return discardedTile;
     }
 
-    //#endregion
     /*
-     * TODO: adds the given tile to the playerTiles in order
      * should also update numberOfTiles accordingly.
      * make sure playerTiles are not more than 15 at any time
      * Burak
@@ -118,7 +111,6 @@ class Player {
     }
 
     /*
-     * TODO: checks if this player's hand satisfies the winning condition
      * to win this player should have 3 chains of length 4, extra tiles
      * does not disturb the winning condition
      * Semih

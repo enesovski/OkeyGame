@@ -50,10 +50,27 @@ public class ApplicationMain {
                     System.out.println("1. Discard Tile");
                 }
 
-                System.out.print("Your choice: ");
-                playerChoice = sc.nextInt();
-                sc.nextLine();
+                boolean validChoice = false;
+                while(!validChoice) {
+                    System.out.print("Your choice: ");
+                    playerChoice = sc.nextInt();
 
+                    if(firstTurn) {
+                        // Only option 1 is allowed on the first turn
+                        if(playerChoice == 1) {
+                            validChoice = true;
+                        } else {
+                            System.out.println("Invalid choice. Please choose 1.");
+                        }
+                    } else {
+                        // Options 1 or 2 are allowed after the first turn
+                        if(playerChoice == 1 || playerChoice == 2) {
+                            validChoice = true;
+                        } else {
+                            System.out.println("Invalid choice. Please choose 1 or 2.");
+                        }
+                    }
+                }
                 // after the first turn we can pick up
                 if(!firstTurn) {
                     if(playerChoice == 1) {
@@ -80,7 +97,6 @@ public class ApplicationMain {
                     System.out.print("Discard the tile in index: ");
                     playerChoice = sc.nextInt();
 
-                    // TODO: make sure the given index is correct, should be 0 <= index <= 14 
                     // Yavuz
                     while(playerChoice < 0 && playerChoice > 14){
                         System.out.println("Enter valid index between 0-14 !!!");
